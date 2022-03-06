@@ -3,9 +3,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Payroll implements Runnable {
 
-    static ArrayList payments = new ArrayList<>();
+    static ArrayList<String> paymentsList = new ArrayList<>();
 
-    static AtomicInteger salary = new AtomicInteger(2000);
+    static AtomicInteger salaryIvanov = new AtomicInteger(2000);
+    static AtomicInteger salaryPetrov = new AtomicInteger(2500);
+    static AtomicInteger salarySuvorov = new AtomicInteger(3000);
 
     static int bonus = 700;
 
@@ -16,19 +18,22 @@ public class Payroll implements Runnable {
         payroll.doWork();
         t1.start();
         t2.start();
-        System.out.println(payments);
+        System.out.println(paymentsList.get(0) + " " + salaryIvanov);
+        System.out.println(paymentsList.get(1) + " " + salaryPetrov);
+        System.out.println(paymentsList.get(2) + " " + salarySuvorov);
     }
 
     @Override
     public void run() {
-            payments.add(0, "Ivanov");
-            payments.add(0, salary);
-            payments.add(1, salary);
-            payments.add(2, salary);
+            paymentsList.add(0, "Ivanov");
+            paymentsList.add(1, "Petrov");
+            paymentsList.add(2, "Suvorov");
         }
 
-    public void doWork() {
-        salary.addAndGet(bonus);
+    public synchronized void doWork() {
+        salaryIvanov.addAndGet(bonus);
+        salaryPetrov.addAndGet(bonus);
+        salarySuvorov.addAndGet(bonus);
     }
 }
 
