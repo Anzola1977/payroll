@@ -11,13 +11,13 @@ public class Payroll implements Runnable {
 
     static int bonus = 700;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IndexOutOfBoundsException {
         Payroll payroll = new Payroll();
         Thread t1 = new Thread(payroll);
         Thread t2 = new Thread(payroll);
-        payroll.doWork();
         t1.start();
         t2.start();
+        payroll.doWork();
         System.out.println(paymentsList.get(0) + " " + salaryIvanov);
         System.out.println(paymentsList.get(1) + " " + salaryPetrov);
         System.out.println(paymentsList.get(2) + " " + salarySuvorov);
@@ -25,10 +25,10 @@ public class Payroll implements Runnable {
 
     @Override
     public void run() {
-            paymentsList.add(0, "Ivanov");
-            paymentsList.add(1, "Petrov");
-            paymentsList.add(2, "Suvorov");
-        }
+        paymentsList.add(0, "Ivanov");
+        paymentsList.add(1, "Petrov");
+        paymentsList.add(2, "Suvorov");
+    }
 
     public synchronized void doWork() {
         salaryIvanov.addAndGet(bonus);
